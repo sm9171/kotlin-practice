@@ -1,3 +1,6 @@
+package com.example.kotlin.domain
+
+import com.example.kotlin.toSlug
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id

@@ -1,3 +1,5 @@
+package com.example.kotlin.domain
+
 import org.springframework.data.repository.CrudRepository
 
 interface ArticleRepository : CrudRepository<Article, Long> {
