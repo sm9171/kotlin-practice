@@ -68,7 +68,7 @@ tasks.jacocoTestReport {
 		html.required = true
 		html.outputLocation = file("$buildDir/reports/myReport.html")
 		csv.required = true
-		xml.required = false
+		xml.required = true
 	}
 
 	var excludes = mutableListOf<String>()
