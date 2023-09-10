@@ -7,6 +7,7 @@ plugins {
 	kotlin("plugin.spring") version "1.8.22"
 	kotlin("plugin.jpa") version "1.8.22"
 	kotlin("plugin.allopen") version "1.8.22"
+	jacoco
 }
 
 allOpen {
@@ -58,4 +59,70 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+tasks.jacocoTestReport {
+
+	dependsOn(tasks.test)
+	reports {
+		html.required = true
+		html.outputLocation = file("$buildDir/reports/myReport.html")
+		csv.required = true
+		xml.required = false
+	}
+
+	var excludes = mutableListOf<String>()
+	excludes.add("com/example/kotlin/BlogConfiguration.kt")
+	excludes.add("com/example/kotlin/Extensions.kt")
+	excludes.add("com/example/kotlin/KotlinApplication.kt")
+
+	classDirectories.setFrom(
+		sourceSets.main.get().output.asFileTree.matching {
+			exclude(excludes)
+		}
+	)
+
+	finalizedBy(tasks.jacocoTestCoverageVerification)
+}
+
+tasks.jacocoTestCoverageVerification {
+
+	var Qdomains = mutableListOf<String>()
+
+	for (qPattern in 'A' .. 'Z') {
+		Qdomains.add("*.Q${qPattern}*")
+	}
+
+	violationRules {
+		rule {
+			enabled = true
+			element = "CLASS"
+
+			limit {
+				counter = "BRANCH"
+				value = "COVEREDRATIO"
+				minimum = "0.80".toBigDecimal()
+			}
+
+			limit {
+				counter = "LINE"
+				value = "TOTALCOUNT"
+				maximum = "200".toBigDecimal()
+			}
+
+			excludes = Qdomains
+		}
+	}
+
+	var excludes = mutableListOf<String>()
+	excludes.add("com/yolo/jean/config")
+	excludes.add("com/yolo/jean/global")
+	excludes.add("com/yolo/jean/reply/service/ReplyService.class")
+	excludes.add("com/yolo/jean/board/service/BoardSearchService.class")
+
+	classDirectories.setFrom(
+		sourceSets.main.get().output.asFileTree.matching {
+			exclude(excludes)
+		}
+	)
 }
