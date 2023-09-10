@@ -39,14 +39,14 @@ jobs:
         if: always()
         with:
           files: |
-            test-results/**/*.xml
+            ${{ github.workspace }}/build/test-results/**/*.xml
 
       - name: If test fails, register a Check comment on the failed code line
         uses: mikepenz/action-junit-report@v3
         if: ${{ always() }}
         with:
-          report_paths: test-results/**/*.xml
-          token: ${{ github.token }}
+          report_paths: ${{ github.workspace }}/build/test-results/**/*.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Register test coverage as a comment in PR
         id: jacoco
@@ -54,7 +54,7 @@ jobs:
         with:
           title: 📝 테스트 커버리지 리포트입니다
           paths: ${{ github.workspace }}/build/reports/jacoco/test/jacocoTestReport.xml
-          token: ${{ github.token }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           min-coverage-overall: 50
           min-coverage-changed-files: 50
 
