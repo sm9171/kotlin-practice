@@ -19,6 +19,16 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
 
+      - name: Cache Gradle packages
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
@@ -27,13 +37,13 @@ jobs:
 
       - name: Register test results as comments in PR
         uses: EnricoMi/publish-unit-test-result-action@v1
-        if: always()
+        if: ${{ always() }}
         with:
           files: build/test-results/**/*.xml
 
       - name: If test fails, register a Check comment on the failed code line
         uses: mikepenz/action-junit-report@v3
-        if: always()
+        if: ${{ always() }}
         with:
           report_paths: build/test-results/**/*.xml
           token: ${{ github.token }}
@@ -56,5 +66,5 @@ jobs:
           fields: repo, message, commit, author, action, eventName, ref, workflow, job, took
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        if: failure()
+        if: ${{ failure() }}
 
