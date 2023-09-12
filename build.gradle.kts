@@ -89,10 +89,10 @@ tasks.jacocoTestReport {
 
 tasks.jacocoTestCoverageVerification {
 
-    var Qdomains = mutableListOf<String>()
+    var qDomains = mutableListOf<String>()
 
     for (qPattern in 'A'..'Z') {
-        Qdomains.add("*.Q${qPattern}*")
+        qDomains.add("*.Q${qPattern}*")
     }
 
     violationRules {
@@ -112,7 +112,7 @@ tasks.jacocoTestCoverageVerification {
                 maximum = "200".toBigDecimal()
             }
 
-            excludes = Qdomains
+            excludes = qDomains
         }
     }
 

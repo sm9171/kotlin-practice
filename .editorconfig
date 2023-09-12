@@ -9,9 +9,10 @@ insert_final_newline = true
 max_line_length = 120
 tab_width = 4
 ktlint_disabled_rules = no-wildcard-imports,import-ordering,comment-spacing
+comma-dangling = never
 
 [*.{kt, kts}]
-insert_final_newline = false
+comma-dangling = always-multiline
 
 [*.{yml,yaml}]
 indent_size = 2
