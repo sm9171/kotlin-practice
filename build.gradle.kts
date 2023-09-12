@@ -81,7 +81,7 @@ tasks.jacocoTestReport {
     classDirectories.setFrom(
         sourceSets.main.get().output.asFileTree.matching {
             exclude(excludes)
-        }
+        },
     )
 
     finalizedBy(tasks.jacocoTestCoverageVerification)
@@ -92,7 +92,7 @@ tasks.jacocoTestCoverageVerification {
     var qDomains = mutableListOf<String>()
 
     for (qPattern in 'A'..'Z') {
-        qDomains.add("*.Q${qPattern}*")
+        qDomains.add("*.Q$qPattern*")
     }
 
     violationRules {
@@ -124,6 +124,6 @@ tasks.jacocoTestCoverageVerification {
     classDirectories.setFrom(
         sourceSets.main.get().output.asFileTree.matching {
             exclude(excludes)
-        }
+        },
     )
 }
