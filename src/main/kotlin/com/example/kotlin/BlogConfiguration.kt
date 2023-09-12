@@ -13,7 +13,6 @@ class BlogConfiguration {
 
     @Bean
     fun databaseInitializer(userRepository: UserRepository, articleRepository: ArticleRepository) = ApplicationRunner {
-
         val smaldini = userRepository.save(
             User("smaldini", "Stéphane", "Maldini"),
         )
@@ -35,6 +34,5 @@ class BlogConfiguration {
                 author = smaldini,
             ),
         )
-
     }
 }

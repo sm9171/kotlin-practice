@@ -15,8 +15,10 @@ class Article(
     @ManyToOne var author: User,
     var slug: String = title.toSlug(),
     var addedAt: LocalDateTime = LocalDateTime.now(),
-    @Id @GeneratedValue var id: Long? = null,
-    )
+    @Id
+    @GeneratedValue
+    var id: Long? = null,
+)
 
 @Entity
 class User(
@@ -24,5 +26,7 @@ class User(
     var firstname: String,
     var lastname: String,
     var description: String? = null,
-    @Id @GeneratedValue var id: Long? = null,
-    )
+    @Id
+    @GeneratedValue
+    var id: Long? = null,
+)

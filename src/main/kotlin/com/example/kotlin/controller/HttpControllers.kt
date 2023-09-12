@@ -21,7 +21,6 @@ class ArticleController(private val repository: ArticleRepository) {
         HttpStatus.NOT_FOUND,
         "This article does not exist",
     )
-
 }
 
 @RestController
