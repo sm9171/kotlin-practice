@@ -11,8 +11,5 @@ tab_width = 4
 ktlint_disabled_rules = no-wildcard-imports,import-ordering,comment-spacing
 comma-dangling = never
 
-[*.{kt, kts}]
-comma-dangling = always-multiline
-
 [*.{yml,yaml}]
 indent_size = 2
