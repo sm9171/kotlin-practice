@@ -87,7 +87,7 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: latest
         run: |
-          docker build -t ${{ secrets.ECR_REGISTRY }}/test:$IMAGE_TAG .
-          docker push ${{ secrets.ECR_REGISTRY }}/test:$IMAGE_TAG
-          echo "image=${{ secrets.ECR_REGISTRY }}/test:$IMAGE_TAG" >> $GITHUB_OUTPUT
+          docker build -t ${{ secrets.ECR_REGISTRY }}:$IMAGE_TAG .
+          docker push ${{ secrets.ECR_REGISTRY }}:$IMAGE_TAG
+          echo "image=${{ secrets.ECR_REGISTRY }}:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
