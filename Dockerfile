@@ -1,4 +1,12 @@
+FROM openjdk:17-alpine AS builder
+
+COPY . /tmp
+WORKDIR /tmp
+
+RUN sed -i 's/\r&//' ./gradlew
+RUN ./gradlew build
+
 FROM openjdk:17-alpine
-ARG JAR_FILE=build/libs/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-Dspring.profiles.active=prod","-jar","/app.jar"]
+COPY --from=builder /tmp/build/libs/*.jar ./
+
+CMD ["java","-Dspring.profiles.active=prod","-jar","/app.jar"]
